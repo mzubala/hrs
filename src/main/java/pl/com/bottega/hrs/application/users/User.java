@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -19,13 +19,14 @@ public class User {
     @ElementCollection
     @CollectionTable(
             name = "user_roles",
-            joinColumns = @JoinColumn(name="user_id")
+            joinColumns = @JoinColumn(name = "user_id")
     )
-    @Column(name="role")
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-    User() {}
+    User() {
+    }
 
     public User(String login, String password) {
         this.login = login;
@@ -33,4 +34,18 @@ public class User {
         roles.add(Role.STANDARD);
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void updateProfile(UpdateUserProfileCommand command) {
+        if (command.getLogin() != null)
+            login = command.getLogin();
+        if (command.getNewPassword() != null)
+            password = command.getNewPassword();
+        if (command.getRoles() != null) {
+            roles.clear();
+            roles.addAll(command.getRoles());
+        }
+    }
 }
