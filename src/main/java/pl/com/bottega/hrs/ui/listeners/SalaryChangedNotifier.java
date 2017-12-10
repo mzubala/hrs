@@ -1,6 +1,7 @@
 package pl.com.bottega.hrs.ui.listeners;
 
 import org.apache.log4j.Logger;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
@@ -10,6 +11,7 @@ import pl.com.bottega.hrs.model.repositories.EmployeeRepository;
 
 
 @Component
+@ConditionalOnProperty(name="hrs.notificationsEnabled", havingValue = "true")
 public class SalaryChangedNotifier {
 
     private EmployeeRepository employeeRepository;
