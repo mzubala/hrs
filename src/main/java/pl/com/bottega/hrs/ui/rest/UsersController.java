@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.hrs.application.CommandGateway;
 import pl.com.bottega.hrs.application.users.*;
+import pl.com.bottega.hrs.infrastructure.Secured;
 
 import java.util.Optional;
 
@@ -37,12 +38,18 @@ public class UsersController {
     }
 
     @GetMapping("/current")
+    @Secured
     public ResponseEntity<UserDto> getCurrent() {
         Optional<UserDto> userDtoOptional = currentUser.getUserInfo();
         if (userDtoOptional.isPresent())
             return new ResponseEntity<>(userDtoOptional.get(), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    }
+
+    @DeleteMapping("/session")
+    public void logout() {
+        currentUser.logout();
     }
 
 }

@@ -1,6 +1,5 @@
 package pl.com.bottega.hrs.ui.rest;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.hrs.application.*;
 import pl.com.bottega.hrs.model.commands.*;

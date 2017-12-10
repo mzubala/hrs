@@ -26,4 +26,12 @@ public class CurrentUser {
         User user = userRepository.get(userId);
         return Optional.of(new UserDto(user));
     }
+
+    public void logout() {
+        userId = null;
+    }
+
+    public boolean isAuthenticated() {
+        return userId != null;
+    }
 }
